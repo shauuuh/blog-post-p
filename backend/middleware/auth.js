@@ -2,19 +2,15 @@ import jwt from 'jsonwebtoken';
 import 'dotenv/config';
 
 const authMiddleware = (req, res, next) => {
-  const token =  req.header('Authorization');
+  const token =  req.headers['authorization']?.split(' ');
 
-  if(!token) {
-    return res.status(401).json({ error: 'Access denied'});
-  }
+  if(!token) return res.status(401).json({ error: 'Access denied'});
 
-  try {
-    const verified = jwt.verify(token, process.env.JWT_SECRET);
-    req.userId = verified.id;
+  jwt.verify(token, process.env.JWT_SECRET, (err, user) => {
+    if (err) return res.status(403).json({ error: 'Invalid Token '});
+    req.user = user;
     next();
-  } catch (error) {
-    res.status(400).json({ error: 'Invalid Token'});
-  }
+  });
 };
 
 export default authMiddleware;
