@@ -21,4 +21,18 @@ const getAllPosts = async (req, res) => {
   }
 };
 
-export {createPost, getAllPosts};
+const getUserPosts = async (req, res) => {
+  const userId = req.userId;
+  try {
+    const post = await Post.findAll({
+      where: {
+        authorId: userId,
+      },
+    });
+    res.json(post);
+  } catch (error) {
+    res.status(500).json({ error: 'Error getting the posts'});
+  }
+}
+
+export {createPost, getAllPosts, getUserPosts};

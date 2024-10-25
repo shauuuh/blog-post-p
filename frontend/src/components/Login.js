@@ -3,14 +3,15 @@ import { login } from '../services/api';
 import { useNavigate } from 'react-router-dom';
 
 function Login() {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const [form, setForm] = useState({ email: '', password:''});
   const navigate =  useNavigate();
 
+  const handleChange = (e) => setForm({ ...form, [e.target.name]: e.target.value });
+  
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const data =  await login({ email, password});
+      const data =  await login({ form });
       localStorage.setItem('token', data.token); //Save token in localStorage
       alert('Login successful');
       navigate('/dashboard');
@@ -26,13 +27,13 @@ function Login() {
         type='text'
         placeholder='Email'
         value={email}
-        onChange={(e) => setEmail(e.target.value)}
+        onChange={handleChange}
       />
       <input
         type='password'
         placeholder='Password'
         value={password}
-        onChange={(e) => setPassword(e.target.value)}
+        onChange={handleChange}
       />
       <button type='submit'>Login</button>
     </form>
