@@ -18,15 +18,18 @@ const register = async (req, res) => {
 
 const login = async (req, res) => {
   const { email, password } = req.body;
+  console.log(email);
   try {
-    const user = await User.findOne({ where: {email} });
+    console.log(email);
+    const user = await User.findOne({ where: { email } });
     if(!user) return res.status(404).json({error: 'User not found' });
 
     const isMatch =  await bcrypt.compare(password, user.password);
     if(!isMatch) return res.status(400).json({error: 'Incorrect Password'});
-
+    console.log(email);
     const token = jwt.sign({ id: user.id }, process.env.JWT_SECRET, { expiresIn: '1h' });
-    res({ token });
+    res.json({ token, user: { id: user.id, email: user.email }});
+    //res.json({ token, user: { id: user.id, username: user.username } });
   } catch (error){
     res.status(500).json({ error: 'Error starting session'});
   }
