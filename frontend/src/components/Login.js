@@ -7,7 +7,7 @@ function Login({ setAuth }) {
     email: '', 
     password: ''
   });
-  //const navigate =  useNavigate();
+  const navigate =  useNavigate();
 
   const handleChange = (e) => {
     setForm(prevValue => {
@@ -21,6 +21,7 @@ function Login({ setAuth }) {
       const data =  await login({ email: form.email, password: form.password });
       localStorage.setItem('token', data.token); //Save token in localStorage
       setAuth(true);
+      navigate('/');
       console.log('Login successful');
     } catch (error) {
       console.error(error.response.data);

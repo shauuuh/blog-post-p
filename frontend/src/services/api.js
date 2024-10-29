@@ -18,7 +18,7 @@ export const login = async(userData) => {
 
 // Get posts
 export const getPost = async() => {
-  const response = await axios.get(`${API_URL}/post`);
+  const response = await axios.get(`${API_URL}/posts`);
   return response.data;
 };
 

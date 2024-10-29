@@ -6,6 +6,6 @@ const router = express.Router();
 
 router.post('/post', authMiddleware, createPost);
 router.get('/', getAllPosts);
-router.get('/user', authMiddleware, getUserPosts)
+router.get('/user', authMiddleware, getUserPosts);
 
 export default router;

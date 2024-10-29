@@ -3,8 +3,15 @@ import Post from '../models/Post.js';
 const createPost = async (req, res) => {
   const { title, content, image } = req.body;
   const userId = req.userId;
-
+  console.log(title);
+  console.log(req);
   try {
+    console.log("inf");
+    console.log(title);
+    console.log(content);
+    console.log(img);
+    console.log(userId);
+    
     const post = await Post.create({ title, content, image, userId });
     res.json(post);
   } catch (error) {
