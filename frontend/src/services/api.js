@@ -29,18 +29,19 @@ export const createPost = async (postData, token) => {
       authorization: `Bearer ${token}`,
     },
   };
-  const response = await axios.post(`${API_URL}/posts/post`, postData, config);
+  const response = await axios.post(`${API_URL}/posts/post`,postData, config);
   return response.data;
 };
 
 // Get user posts
-export const getUserPosts = async(postData, token) => {
+export const getUserPosts = async(token) => {
   const config = {
     headers: {
       authorization: `Bearer ${token}`,
     },
   };
-  const response = await axios.get(`${API_URL}/posts/user`, postData, config);
+  
+  const response = await axios.get(`${API_URL}/posts/user`, config);
   return response.data;
 };
 

@@ -4,7 +4,7 @@ import Dashboard from './pages/Dashboard';
 import Login from './components/Login';
 import Register from './components/Register';
 import Navbar from './components/Navbar';
-import NewPost from './pages/NewPost';
+import CreatePost from './pages/CreatePost';
 import Profile from './pages/Profile';
 
 import { useState, useEffect } from 'react';
@@ -29,7 +29,7 @@ function App() {
         <Route path="/" element={<PrivateRoute><Home /></PrivateRoute>} />
         <Route path="/login" element={<Login setAuth={setAuth}/>} />
         <Route path="/register" element={<Register />} />
-        <Route path="/new" element={<NewPost />}/>
+        <Route path="/new" element={<CreatePost />}/>
         <Route path='/profile' element={<Profile />}/>
         <Route path="/dashboard" element={<Dashboard />} />
       </Routes>

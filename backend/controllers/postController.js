@@ -2,7 +2,7 @@ import Post from '../models/Post.js';
 
 const createPost = async (req, res) => {
   const { title, content, image } = req.body;
-  const userId = req.query.userId;
+  const userId = req.user.id;
 
   try {    
     const post = await Post.create({ title, content, image, userId });
@@ -22,8 +22,8 @@ const getAllPosts = async (req, res) => {
 };
 
 const getUserPosts = async (req, res) => {
-  //const userId = req.userId;
-  const userId = req.query.userId;
+  const userId = req.user.id;
+  
   try {
     const post = await Post.findAll({
       where: {

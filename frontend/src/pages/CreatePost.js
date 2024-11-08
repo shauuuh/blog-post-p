@@ -1,7 +1,8 @@
 import { useState } from 'react';
 import { createPost } from '../services/api';
 
-function NewPost(){
+function CreatePost(){
+
   const [form, setForm] = useState({
     title: '',
     content: '',
@@ -12,10 +13,18 @@ function NewPost(){
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
     try {
-      await createPost({ title: form.title, content: form.content, image: form.image });
-      alert('Post created successfully');
+      const token = localStorage.getItem('token');
+
+      const postData = {
+        title: form.title, 
+        content: form.content, 
+        image: form.image,
+        }
+
+        await createPost( postData, token );
+        alert('Post created successfully');
+       
     } catch (error) {
       console.error(error.response.data);
       alert('Error creating the post');
@@ -32,4 +41,4 @@ function NewPost(){
   );
 }
 
-export default NewPost;
+export default CreatePost;
