@@ -37,9 +37,11 @@ const getUserPosts = async (req, res) => {
 }
 
 const editPost = async (req,res) => {
+  console.log("HERE 111");
   const { title, content, image } = req.body;
-  const  postId  = req.params;
-  console.log(postId);
+  const  { postId }  = req.params;
+  console.log(req.params);
+  
   try {
     const post = await Post.findByPk(postId);
 

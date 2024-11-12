@@ -52,7 +52,7 @@ export const updatePost = async(postId, postData, token) => {
       authorization: `Bearer ${token}`,
     },
   };
-  
-  const response = await axios.put(`${API_URL}/post/edit/:${postId}`, postData, config);
+  console.log(postData);
+  const response = await axios.put(`${API_URL}/posts/edit/${postId}`, postData, config);
   return response.data;
 }
