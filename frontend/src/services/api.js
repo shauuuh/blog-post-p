@@ -29,7 +29,7 @@ export const createPost = async (postData, token) => {
       authorization: `Bearer ${token}`,
     },
   };
-  const response = await axios.post(`${API_URL}/posts/post`,postData, config);
+  const response = await axios.post(`${API_URL}/posts/post`, postData, config);
   return response.data;
 };
 
@@ -45,3 +45,14 @@ export const getUserPosts = async(token) => {
   return response.data;
 };
 
+// Edit a post
+export const updatePost = async(postId, postData, token) => {
+  const config = {
+    headers: {
+      authorization: `Bearer ${token}`,
+    },
+  };
+  
+  const response = await axios.put(`${API_URL}/post/edit/:${postId}`, postData, config);
+  return response.data;
+}
