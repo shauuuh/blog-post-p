@@ -1,11 +1,11 @@
 import Post from '../models/Post.js';
 
 const createPost = async (req, res) => {
-  const { title, content, image } = req.body;
+  const { title, content, image, category } = req.body;
   const userId = req.user.id;
 
   try {    
-    const post = await Post.create({ title, content, image, userId });
+    const post = await Post.create({ title, content, image, userId, category });
     res.json(post);
   } catch (error) {
     res.status(500).json({ error: 'Error creating the post'});
@@ -34,11 +34,11 @@ const getUserPosts = async (req, res) => {
   } catch (error) {
     res.status(500).json({ error: 'Error getting the posts'});
   }
-}
+};
 
 const editPost = async (req,res) => {
   console.log("HERE 111");
-  const { title, content, image } = req.body;
+  const { title, content, image, category } = req.body;
   const  { postId }  = req.params;
   console.log(req.params);
   
@@ -53,6 +53,7 @@ const editPost = async (req,res) => {
     post.title = title;
     post.content = content;
     post.image = image;
+    post.category = category;
     await post.save();
 
     res.json(post); // Response current data
@@ -60,21 +61,20 @@ const editPost = async (req,res) => {
     console.error("Error updating the post", error);
     res.status(500).json({ error: 'Server error'});
   }
-}
+};
 
 const deletePost = async (req,res) => {
-  const postId = req.body.postId;
+  const { postId } = req.params;
   try {
-    await Post.destroy({
-      where: {
-        id: postId
-      }
+    const deletedPost = await Post.destroy({ where: { id: postId }});
+    if (deletedPost) {
+      res.status(200).json({ message: 'Post deleted successfully'});
+    } else {
+      res.status(404).json({ message: 'Post not found'});
     }
-  );
-  res.status(200).json({ message: 'Post deleted successfully'});
   } catch (error) {
     res.status(500).json({ error: 'Error deleting the post'});
   }
-}
+};
 
 export {createPost, getAllPosts, getUserPosts, editPost, deletePost};

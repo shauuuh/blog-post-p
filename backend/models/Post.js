@@ -14,6 +14,10 @@ const Post = sequelize.define('Post', {
   image: {
     type: DataTypes.STRING,
   },
+  category: {
+    type: DataTypes.STRING,
+    allowNull: false
+  },
   userId: {
     type: DataTypes.INTEGER,
     allowNull: false,

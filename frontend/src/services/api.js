@@ -52,7 +52,18 @@ export const updatePost = async(postId, postData, token) => {
       authorization: `Bearer ${token}`,
     },
   };
-  console.log(postData);
+
   const response = await axios.put(`${API_URL}/posts/edit/${postId}`, postData, config);
   return response.data;
-}
+};
+
+export const deletePost = async(postId, token) => {
+  const config = {
+    headers: {
+      authorization: `Bearer ${token}`,
+    },
+  };
+  
+  const response = await axios.delete(`${API_URL}/posts/delete/${postId}`, config);
+  return response.data;
+};
