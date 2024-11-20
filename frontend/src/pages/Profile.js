@@ -72,8 +72,8 @@ function Profile() {
 
       {editingPost && (
       <form onSubmit={(e) => submitEdit(e, editingPost.id)}>
-        <input type="text" name="title" placeholder="Title" value={form.title} onChange={handleInputChange}/>
-        <input type="text" name="content" placeholder="Write something..." value={form.content} onChange={handleInputChange}/>
+        <input type="text" name="title" placeholder="Title" value={form.title} onChange={handleInputChange} required/>
+        <input type="text" name="content" placeholder="Write something..." value={form.content} onChange={handleInputChange} required/>
         <input type="text" name="image" value={form.image} onChange={handleInputChange}/>
         <select name="category" value={form.category} onChange={handleInputChange}>
           <option value="Science">Science</option>

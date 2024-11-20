@@ -1,46 +1,83 @@
 import { useState } from 'react';
 import { register } from '../services/api';
 import { useNavigate } from 'react-router-dom';
+import { emailValidation, passwordValidation, nameValidation } from './DataValidation';
 
 function Register() {
-  const [name, setName] = useState('');
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  
+  const [formData, setFormData] = useState({ name: '', email: '', password: ''});
+  const [errors, setErrors] = useState({ name:'', email: '', password: '' });
   const navigate = useNavigate(); 
-
+  
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await register({ name, email, password }); // send data to register route
-      alert('Register successful. Please login.');
-      navigate('/login'); 
+      const newErrors = {
+        name: nameValidation(formData.name),
+        email: emailValidation(formData.email),
+        password: passwordValidation(formData.password),
+        
+      };
+
+      if( !newErrors.email && !newErrors.password && !newErrors.name){
+        await register({ name: formData.name, email: formData.email, password: formData.password }); // send data to register route
+        alert('Register successful. Please login.');
+        navigate('/login');
+      } else {
+        setErrors(newErrors);
+      }       
     } catch (error) {
       console.error(error.response.data);
       alert('Error register');
     }
   };
 
+  const handleChange = (e) => {
+    setFormData({
+      ...formData,
+      [e.target.name]: e.target.value,
+    });
+  };
+
   return (
     <form onSubmit={handleSubmit} >
-      <input
-        type='text'
-        placeholder='Name'
-        value={name}
-        onChange={(e) => setName(e.target.value)}
-      />
-      <input 
-        type="text"
-        placeholder="Email"
-        value={email}
-        onChange={(e) => setEmail(e.target.value)}
-      />
-      <input 
-        type="password"
-        placeholder="Password"
-        value={password}
-        onChange={(e) => setPassword(e.target.value)}
-      />
+      <div>
+        <label>Name:</label>
+        <input
+          type='text'
+          placeholder='Full Name'
+          name='name'
+          value={formData.name}
+          onChange={handleChange}
+          required
+        />
+        {errors.name && <p>{errors.name}</p>}
+      </div>
+      <div>
+        <label>Email:</label>
+        <input 
+          type="text"
+          placeholder="user@example.com"
+          name='email'
+          value={formData.email}
+          onChange={handleChange}
+          required
+          minlength="3" 
+          maxlength="64"
+        />
+        {errors.email && <p>{errors.email}</p>}
+      </div>
+      <div>
+        <label>Password:</label>
+        <input 
+          type="password"
+          name="password"
+          placeholder="Password"
+          value={formData.password}
+          onChange={handleChange}
+          required
+        />
+        {errors.password && <p>{errors.password}</p>}
+      </div>
       <button type="submit">Register</button>
     </form>
   );
