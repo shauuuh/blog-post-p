@@ -10,8 +10,9 @@ export const passwordValidation = (password) => {
 }
 
 export const nameValidation = (name) => {
-  const nameRegex  = /^[A-Z][a-zA-Z '.-]*[A-Za-z][^-]$/;
+  const nameRegex  = /^[a-zA-Z]+ [a-zA-Z]+$/;
+  // regular expresion to Upper /^[A-Z][a-zA-Z '.-]*[A-Za-z][^-]$/
 
-  return nameRegex.test(email) ? "" : "Invalid characters or sintaxis.";
+  return nameRegex.test(name) ? "" : "Invalid characters or sintaxis.";
 }
 

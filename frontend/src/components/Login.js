@@ -21,8 +21,8 @@ function Login({ setAuth }) {
     e.preventDefault();
     try {
       const newErrors = {
-        email: emailValidation(formData.email),
-        password: passwordValidation(formData.password),
+        email: emailValidation(form.email),
+        password: passwordValidation(form.password),
       };
 
       if (!newErrors.email && !newErrors.password){

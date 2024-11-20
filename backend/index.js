@@ -13,7 +13,7 @@ app.use(cors({
   optionsSuccessStatus: 200
 }));
 
-app.use(bodyParser.json())
+app.use(bodyParser.json());
 
 // Routes 
 app.use('/auth', authRoutes);
