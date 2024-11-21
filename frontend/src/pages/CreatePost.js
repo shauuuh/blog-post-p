@@ -37,7 +37,7 @@ function CreatePost(){
     <form onSubmit={handleSubmit}>
       <input type='text' name='title' placeholder='Title' value={form.title} onChange={handleChange} required/>
       <input type='text' name='content' placeholder='Write something...' value={form.content} onChange={handleChange} required/>
-      <input type='text' name='image' value={form.image} onChange={handleChange}/>
+      <input type='file' name='image' value={form.image} onChange={handleChange}/>
       <select name="category" value={form.category} onChange={handleChange}>
           <option value="Science">Science</option>
           <option value="Music">Music</option>

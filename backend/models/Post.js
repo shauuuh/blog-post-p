@@ -12,7 +12,8 @@ const Post = sequelize.define('Post', {
     allowNull: false
   },
   image: {
-    type: DataTypes.STRING,
+    type: DataTypes.BLOB,
+    allowNull: true
   },
   category: {
     type: DataTypes.STRING,
