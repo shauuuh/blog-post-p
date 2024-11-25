@@ -4,7 +4,7 @@ import { getUserPosts, updatePost, deletePost } from "../services/api";
 function Profile() {
   const [posts, setPosts] = useState([]);
   const [editingPost, setEditingPost] = useState(null);
-  const [form, setForm] = useState({ title: '', content: '', image: '', category: 'Other'});
+  const [form, setForm] = useState({ title: '', content: '', category: 'Other'});
 
   useEffect(() => {
     const fetchPost = async () => {
@@ -22,7 +22,7 @@ function Profile() {
 
   const handleEdit = (post) => {
     setEditingPost(post);
-    setForm({title: post.title, content: post.content, image: post.image, category: post.category});
+    setForm({title: post.title, content: post.content, category: post.category});
   };
 
   const submitEdit = async (e, postId) => {
@@ -32,7 +32,7 @@ function Profile() {
       await updatePost(postId, form, token);
       setPosts(posts.map(post => post.id === postId ? { ...post, ...form} : post));
       setEditingPost(null);
-      setForm({ title: '', content: '', image: '', category: 'Other'});
+      setForm({ title: '', content: '', category: 'Other'});
       alert('Data updated successfully');
     } catch (error) {
       console.error(error.response.data);
@@ -63,6 +63,11 @@ function Profile() {
         {posts.map(post => (
           <div key={post.id}>
             <h3>{post.title}</h3>
+            <img
+              src={post.image}
+              alt={post.title}
+              style={{ width: '300px', height: 'auto'}}
+            />
             <p>{post.content}</p>
             <p>{post.category}</p>
             <button onClick={() => handleEdit(post)}>Edit</button>
@@ -74,7 +79,6 @@ function Profile() {
       <form onSubmit={(e) => submitEdit(e, editingPost.id)}>
         <input type="text" name="title" placeholder="Title" value={form.title} onChange={handleInputChange} required/>
         <input type="text" name="content" placeholder="Write something..." value={form.content} onChange={handleInputChange} required/>
-        <input type="file" name="image" value={form.image} onChange={handleInputChange}/>
         <select name="category" value={form.category} onChange={handleInputChange}>
           <option value="Science">Science</option>
           <option value="Music">Music</option>

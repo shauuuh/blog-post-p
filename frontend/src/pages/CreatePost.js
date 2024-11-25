@@ -6,7 +6,6 @@ function CreatePost(){
   const [form, setForm] = useState({
     title: '',
     content: '',
-    image: '',
     category: ''
   }); 
 
@@ -20,7 +19,6 @@ function CreatePost(){
       const postData = {
         title: form.title, 
         content: form.content, 
-        image: form.image,
         category: form.category
       };
 
@@ -37,7 +35,6 @@ function CreatePost(){
     <form onSubmit={handleSubmit}>
       <input type='text' name='title' placeholder='Title' value={form.title} onChange={handleChange} required/>
       <input type='text' name='content' placeholder='Write something...' value={form.content} onChange={handleChange} required/>
-      <input type='file' name='image' value={form.image} onChange={handleChange}/>
       <select name="category" value={form.category} onChange={handleChange}>
           <option value="Science">Science</option>
           <option value="Music">Music</option>
@@ -47,6 +44,7 @@ function CreatePost(){
           <option value="Video Games">Video Games</option>
           <option value="Love">Love</option>
           <option value="Sports">Sports</option>
+          <option value="Technology">Technology</option>
           <option value="Other">Other</option>
         </select>
       <button type='submit'>Submit</button>

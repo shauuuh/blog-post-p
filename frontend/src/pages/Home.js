@@ -37,7 +37,8 @@ function Home(){
 
     const filtered = posts.filter(post => 
       post.title.toLowerCase().includes(filter) ||
-      post.content.toLowerCase().includes(filter)
+      post.content.toLowerCase().includes(filter) ||
+      post.category.toLowerCase().includes(filter)
     );
 
     setFilteredPosts(filtered);
@@ -66,6 +67,11 @@ function Home(){
       {filteredPosts.map((post) => (
         <div key={post.id}>
           <h2>{post.title}</h2>
+          <img
+              src={post.image}
+              alt={post.title}
+              style={{ width: '300px', height: 'auto'}}
+          />
           <p>{post.content}</p>
           <p>{post.category}</p>
           <p>{new Date(post.createdAt).toLocaleString()}</p>

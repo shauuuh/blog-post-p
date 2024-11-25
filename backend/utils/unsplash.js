@@ -11,9 +11,9 @@ export const fetchImageFromUnsplash = async (query) => {
     });
 
     if (response.data.results.length > 0) {
-      return response.data.results[0].urls.small; // URL de la imagen
+      return response.data.results[0].urls.small; // URL img
     }
-    return null; // Si no hay resultados
+    return null; // No results 
   } catch (error) {
     console.error('Error fetching image from Unsplash:', error);
     return null;

@@ -1,11 +1,13 @@
 import Post from '../models/Post.js';
+import { fetchImageFromUnsplash } from '../utils/unsplash.js';
 
 const createPost = async (req, res) => {
-  const { title, content, image, category } = req.body;
+  const { title, content, category } = req.body;
   const userId = req.user.id;
 
   try {    
-    const post = await Post.create({ title, content, image, userId, category });
+    const image = await fetchImageFromUnsplash(category || title);
+    const post = await Post.create({ title, content, image, category, userId });
     res.json(post);
   } catch (error) {
     res.status(500).json({ error: 'Error creating the post'});
@@ -52,7 +54,6 @@ const editPost = async (req,res) => {
     // Update new data
     post.title = title;
     post.content = content;
-    post.image = image;
     post.category = category;
     await post.save();
 
